@@ -27,11 +27,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ImagePickerFragment : Fragment(), PickedImageAdapter.EmptyImageSetListener {
+class ImagePickerFragment : Fragment(), PickedImageAdapter.EmptyImageSetListener, PickedImageAdapter.OnItemDeleteListener {
 
     lateinit var currentPhotoPath: String
     private val imgAdapter by lazy {
-        PickedImageAdapter(listener = this)
+        PickedImageAdapter(listener = this, deleteListener = this)
     }
 
     companion object {
@@ -62,7 +62,7 @@ class ImagePickerFragment : Fragment(), PickedImageAdapter.EmptyImageSetListener
             srlImages.isRefreshing = false
         }
 
-        imgRecycler.layoutManager = GridLayoutManager(context, 5)
+        imgRecycler.layoutManager = GridLayoutManager(context, 4)
         imgRecycler.adapter = imgAdapter
         imgRecycler.addItemDecoration(EdgeItemDecoration(resources.getDimension(R.dimen.medium_indent).toInt(), EdgeItemDecoration.GRID))
 
@@ -198,5 +198,9 @@ class ImagePickerFragment : Fragment(), PickedImageAdapter.EmptyImageSetListener
             imgRecycler.visibility = View.VISIBLE
             emptyTxtVw.visibility = View.GONE
         }
+    }
+
+    override fun onItemDelete(uri: Uri) {
+        imgAdapter.removeItem(uri)
     }
 }
