@@ -11,7 +11,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class PickedImageAdapter(
-    images: List<Uri> = emptyList()
+    images: List<Uri> = emptyList(),
+    private val listener: EmptyImageSetListener,
 ): RecyclerView.Adapter<PickedImageAdapter.PickedImageViewHolder>() {
 
     private val imageSet = images.toMutableSet()
@@ -27,6 +28,7 @@ class PickedImageAdapter(
     fun addItems(newImages: List<Uri>) {
         imageSet.addAll(newImages)
         notifyDataSetChanged()
+        listener.setScreenEmpty(imageSet.isEmpty())
     }
 
     fun clearItems() {
@@ -46,4 +48,8 @@ class PickedImageAdapter(
     }
 
     override fun getItemCount() = imageSet.size
+
+    interface EmptyImageSetListener {
+        fun setScreenEmpty(isEmpty: Boolean)
+    }
 }

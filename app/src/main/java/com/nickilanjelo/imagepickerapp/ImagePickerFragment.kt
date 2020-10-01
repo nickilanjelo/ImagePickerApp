@@ -18,6 +18,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nickilanjelo.imagepickerapp.adapters.PickedImageAdapter
+import com.nickilanjelo.imagepickerapp.decoration.EdgeItemDecoration
 import kotlinx.android.synthetic.main.fragment_image_picker.*
 import java.io.File
 import java.io.IOException
@@ -26,11 +27,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ImagePickerFragment : Fragment() {
+class ImagePickerFragment : Fragment(), PickedImageAdapter.EmptyImageSetListener {
 
     lateinit var currentPhotoPath: String
     private val imgAdapter by lazy {
-        PickedImageAdapter()
+        PickedImageAdapter(listener = this)
     }
 
     companion object {
@@ -53,14 +54,19 @@ class ImagePickerFragment : Fragment() {
             openImagePickerDialog()
         }
 
-        srlImages.setColorSchemeResources(R.color.colorAccent)
+        srlImages.setColorSchemeResources(R.color.colorPrimary)
         srlImages.setOnRefreshListener {
             imgAdapter.clearItems()
+            setScreenEmpty(true)
+
             srlImages.isRefreshing = false
         }
 
         imgRecycler.layoutManager = GridLayoutManager(context, 5)
         imgRecycler.adapter = imgAdapter
+        imgRecycler.addItemDecoration(EdgeItemDecoration(resources.getDimension(R.dimen.medium_indent).toInt(), EdgeItemDecoration.GRID))
+
+        setScreenEmpty(imgAdapter.itemCount == 0)
     }
 
     override fun onDestroyView() {
@@ -181,6 +187,16 @@ class ImagePickerFragment : Fragment() {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
+        }
+    }
+
+    override fun setScreenEmpty(isEmpty: Boolean) {
+        if (isEmpty) {
+            imgRecycler.visibility = View.GONE
+            emptyTxtVw.visibility = View.VISIBLE
+        } else {
+            imgRecycler.visibility = View.VISIBLE
+            emptyTxtVw.visibility = View.GONE
         }
     }
 }

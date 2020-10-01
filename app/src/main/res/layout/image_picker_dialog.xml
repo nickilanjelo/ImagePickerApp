@@ -11,12 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|start"
         android:background="@drawable/ripple_rectangle"
-        android:padding="16dp"
+        android:padding="@dimen/large_indent"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/regular_icon_size"
+            android:layout_height="@dimen/regular_icon_size"
             android:layout_gravity="center"
             android:src="@drawable/ic_baseline_image_24"
             app:tint="@color/colorAccent"/>
@@ -25,9 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:textSize="20sp"
-            android:text="Галерея"/>
+            android:layout_marginStart="@dimen/large_indent"
+            android:textSize="@dimen/regular_text_size"
+            android:text="@string/gallery_txt"/>
 
     </LinearLayout>
 
@@ -42,12 +42,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|start"
         android:background="@drawable/ripple_rectangle"
-        android:padding="16dp"
+        android:padding="@dimen/large_indent"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/regular_icon_size"
+            android:layout_height="@dimen/regular_icon_size"
             android:layout_gravity="center"
             android:src="@drawable/ic_baseline_add_a_photo_24"
             app:tint="@color/colorAccent"/>
@@ -56,9 +56,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:textSize="20sp"
-            android:text="Камера"/>
+            android:layout_marginStart="@dimen/large_indent"
+            android:textSize="@dimen/regular_text_size"
+            android:text="@string/camera_txt"/>
 
     </LinearLayout>
 
