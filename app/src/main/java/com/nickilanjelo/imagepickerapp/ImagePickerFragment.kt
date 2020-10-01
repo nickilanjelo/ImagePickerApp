@@ -29,9 +29,8 @@ import kotlin.collections.ArrayList
 class ImagePickerFragment : Fragment() {
 
     lateinit var currentPhotoPath: String
-    private val images = ArrayList<Uri>()
     private val imgAdapter by lazy {
-        PickedImageAdapter(images)
+        PickedImageAdapter()
     }
 
     companion object {

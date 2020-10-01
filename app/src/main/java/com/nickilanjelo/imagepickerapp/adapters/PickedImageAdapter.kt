@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nickilanjelo.imagepickerapp.R
 import kotlinx.android.synthetic.main.item_img.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PickedImageAdapter(
-    private val images: ArrayList<Uri>
+    images: List<Uri> = emptyList()
 ): RecyclerView.Adapter<PickedImageAdapter.PickedImageViewHolder>() {
+
+    private val imageSet = images.toMutableSet()
+
     inner class PickedImageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(uri: Uri) {
             itemView.apply {
@@ -20,12 +25,12 @@ class PickedImageAdapter(
     }
 
     fun addItems(newImages: List<Uri>) {
-        images.addAll(newImages)
+        imageSet.addAll(newImages)
         notifyDataSetChanged()
     }
 
     fun clearItems() {
-        images.clear()
+        imageSet.clear()
         notifyDataSetChanged()
     }
 
@@ -37,8 +42,8 @@ class PickedImageAdapter(
     }
 
     override fun onBindViewHolder(holder: PickedImageViewHolder, position: Int) {
-        holder.bind(images[position])
+        holder.bind(imageSet.elementAt(position))
     }
 
-    override fun getItemCount() = images.size
+    override fun getItemCount() = imageSet.size
 }
